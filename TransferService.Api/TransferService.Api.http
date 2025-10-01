@@ -1,0 +1,6 @@
+@TransferService.Api_HostAddress = http://localhost:5056
+
+GET {{TransferService.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
