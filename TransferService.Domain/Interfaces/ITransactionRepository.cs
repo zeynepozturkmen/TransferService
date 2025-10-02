@@ -1,4 +1,4 @@
-﻿using System.Transactions;
+﻿using TransferService.Domain.Entities;
 
 namespace TransferService.Domain.Interfaces
 {

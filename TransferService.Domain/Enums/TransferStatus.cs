@@ -11,6 +11,7 @@ namespace TransferService.Domain.Enums
         Pending,
         Completed,
         Cancelled,
-        Failed
+        Failed,
+        Closed
     }
 }

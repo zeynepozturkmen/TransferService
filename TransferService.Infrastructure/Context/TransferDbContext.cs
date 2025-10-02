@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Transactions;
+using TransferService.Domain.Entities;
+
 
 namespace TransferService.Infrastructure.Context
 {

@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TransferService.Domain\TransferService.Domain.csproj" />
+    <ProjectReference Include="..\TransferService.Infrastructure\TransferService.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
