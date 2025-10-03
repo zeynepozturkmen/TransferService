@@ -8,5 +8,6 @@ namespace TransferService.Domain.Interfaces
         Task<Transaction?> GetByCodeAsync(string code);
         Task<List<Transaction>> GetBySenderAsync(Guid senderId);
         Task UpdateAsync(Transaction transaction);
+        Task<IEnumerable<Transaction>> GetPendingTransactionsByCustomerIdAsync(Guid senderId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TransferService.Domain.Entities;
+using TransferService.Domain.Enums;
 using TransferService.Domain.Interfaces;
 using TransferService.Infrastructure.Context;
 
@@ -32,6 +33,14 @@ namespace TransferService.Infrastructure.Repositories
             _context.Transactions.Update(transaction);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Transaction>> GetPendingTransactionsByCustomerIdAsync(Guid senderId)
+        {
+            return await _context.Transactions
+                .Where(t => t.SenderId == senderId && t.Status == TransferStatus.Pending)
+                .ToListAsync();
+        }
+
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TransferService.Application.Request;
 using TransferService.Application.Services;
 
 namespace TransferService.Api.Controllers
@@ -13,14 +14,14 @@ namespace TransferService.Api.Controllers
         [HttpPost("send")]
         public async Task<IActionResult> Send([FromBody] SendMoneyRequest request)
         {
-            var transaction = await _transferService.SendMoneyAsync(request.SenderId, request.ReceiverId, request.Amount, request.Currency);
+            var transaction = await _transferService.SendMoneyAsync(request);
             return Ok(transaction);
         }
 
         [HttpPost("receive")]
-        public async Task<IActionResult> Receive([FromBody] ReceiveMoneyRequest request)
+        public async Task<IActionResult> Withdraw([FromBody] WithdrawRequest request)
         {
-            var transaction = await _transferService.ReceiveMoneyAsync(request.TransactionCode, request.ReceiverId);
+            var transaction = await _transferService.WithdrawAsync(request);
             if (transaction == null) return NotFound();
             return Ok(transaction);
         }
@@ -28,14 +29,16 @@ namespace TransferService.Api.Controllers
         [HttpPost("cancel")]
         public async Task<IActionResult> Cancel([FromBody] CancelTransactionRequest request)
         {
-            var transaction = await _transferService.CancelTransactionAsync(request.TransactionCode);
+            var transaction = await _transferService.CancelTransactionAsync(request);
             if (transaction == null) return BadRequest();
             return Ok(transaction);
         }
 
-        // DTOs
-        public record SendMoneyRequest(Guid SenderId, Guid ReceiverId, decimal Amount, string Currency);
-        public record ReceiveMoneyRequest(string TransactionCode, Guid ReceiverId);
-        public record CancelTransactionRequest(string TransactionCode);
+        [HttpPut("customerBlocked")]
+        public async Task<IActionResult> CustomerBlocked([FromBody] CustomerBlockedRequest request)
+        {
+            await _transferService.CancelPendingTransfersForBlockedCustomerAsync(request);
+            return Ok();
+        }
     }
 }
