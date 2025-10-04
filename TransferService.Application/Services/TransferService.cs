@@ -2,20 +2,12 @@
 using TransferService.Domain.Entities;
 using TransferService.Domain.Enums;
 using TransferService.Domain.Interfaces;
-using TransferService.Infrastructure.ExternalServices;
+using TransferService.Infrastructure.ExternalServices.Interfaces;
 using TransferService.Infrastructure.Response;
 
 
 namespace TransferService.Application.Services
 {
-    public interface ITransferService
-    {
-        Task<Transaction> SendMoneyAsync(SendMoneyRequest request);
-        Task<Transaction?> WithdrawAsync(WithdrawRequest request);
-        Task<Transaction?> CancelTransactionAsync(CancelTransactionRequest request);
-        Task CancelPendingTransfersForBlockedCustomerAsync(CustomerBlockedRequest request);
-    }
-
     public class TransferServiceApp : ITransferService
     {
         private readonly ITransactionRepository _repository;
